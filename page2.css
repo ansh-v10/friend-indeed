@@ -123,6 +123,8 @@ button span {
   color: white;
   z-index: 5;
   animation: yesPulse 2s ease-in-out infinite;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #yesBtn .pulse {
