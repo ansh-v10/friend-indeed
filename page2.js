@@ -182,34 +182,76 @@ function trackCursor(e) {
 // Desktop: track mouse movement continuously
 document.addEventListener("mousemove", trackCursor);
 
-// Mobile: track touch movement
+// Mobile: track touch movement - only for NO button area
 let touchTrackingInterval;
+let lastTouchPos = { x: 0, y: 0 };
 
+// Track touches anywhere on the button group but allow YES button to be clickable
 btnGroup.addEventListener("touchstart", (e) => {
-  e.preventDefault();
   const touch = e.touches[0];
+  lastTouchPos = { x: touch.clientX, y: touch.clientY };
   
-  // Start continuous tracking
-  touchTrackingInterval = setInterval(() => {
-    if (e.touches && e.touches[0]) {
+  // Check if touch is on YES button
+  const yesRect = yesBtn.getBoundingClientRect();
+  const touchingYes = (
+    touch.clientX >= yesRect.left &&
+    touch.clientX <= yesRect.right &&
+    touch.clientY >= yesRect.top &&
+    touch.clientY <= yesRect.bottom
+  );
+  
+  // Only prevent default and track if NOT touching YES button
+  if (!touchingYes) {
+    e.preventDefault();
+    
+    // Start continuous tracking
+    touchTrackingInterval = setInterval(() => {
       trackCursor({ 
-        clientX: e.touches[0].clientX, 
-        clientY: e.touches[0].clientY 
+        clientX: lastTouchPos.x, 
+        clientY: lastTouchPos.y 
       });
-    }
-  }, 16);
-  
-  trackCursor({ clientX: touch.clientX, clientY: touch.clientY });
+    }, 16);
+    
+    trackCursor({ clientX: touch.clientX, clientY: touch.clientY });
+  }
 }, { passive: false });
 
 btnGroup.addEventListener("touchmove", (e) => {
-  e.preventDefault();
   const touch = e.touches[0];
-  trackCursor({ clientX: touch.clientX, clientY: touch.clientY });
+  lastTouchPos = { x: touch.clientX, y: touch.clientY };
+  
+  // Check if touch is on YES button
+  const yesRect = yesBtn.getBoundingClientRect();
+  const touchingYes = (
+    touch.clientX >= yesRect.left &&
+    touch.clientX <= yesRect.right &&
+    touch.clientY >= yesRect.top &&
+    touch.clientY <= yesRect.bottom
+  );
+  
+  // Only prevent and track if NOT touching YES button
+  if (!touchingYes) {
+    e.preventDefault();
+    trackCursor({ clientX: touch.clientX, clientY: touch.clientY });
+  }
 }, { passive: false });
 
 btnGroup.addEventListener("touchend", (e) => {
-  e.preventDefault();
+  // Check if touch ended on YES button
+  const touch = e.changedTouches[0];
+  const yesRect = yesBtn.getBoundingClientRect();
+  const touchingYes = (
+    touch.clientX >= yesRect.left &&
+    touch.clientX <= yesRect.right &&
+    touch.clientY >= yesRect.top &&
+    touch.clientY <= yesRect.bottom
+  );
+  
+  // Only prevent if NOT on YES button
+  if (!touchingYes) {
+    e.preventDefault();
+  }
+  
   if (touchTrackingInterval) {
     clearInterval(touchTrackingInterval);
   }
@@ -242,7 +284,7 @@ noBtn.addEventListener("mouseenter", (e) => {
 });
 
 /* ---------- YES BUTTON ---------- */
-yesBtn.addEventListener("click", () => {
+function handleYesClick() {
   isTracking = false; // Stop tracking
   
   // Send email notification with name and time
@@ -280,6 +322,13 @@ yesBtn.addEventListener("click", () => {
   // Continue with celebration
   launchConfetti();
   showFinalMessage();
+}
+
+// Handle both click and touch events for YES button
+yesBtn.addEventListener("click", handleYesClick);
+yesBtn.addEventListener("touchend", (e) => {
+  e.preventDefault(); // Prevent double-firing with click event
+  handleYesClick();
 });
 
 /* ---------- FINAL MESSAGE ---------- */
