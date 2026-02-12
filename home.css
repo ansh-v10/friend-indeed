@@ -1,0 +1,375 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Theme Variables */
+:root {
+  --primary-light: #FFB6C1;
+  --primary-dark: #FF69B4;
+  --accent: #ff2d82;
+  --accent-hover: #ff3f96;
+  --shadow-color: rgba(255, 105, 180, 0.4);
+  --text-shadow: rgba(255, 63, 129, 0.6);
+}
+
+body.theme-purple {
+  --primary-light: #E0BBE4;
+  --primary-dark: #957DAD;
+  --accent: #7B2CBF;
+  --accent-hover: #9D4EDD;
+  --shadow-color: rgba(123, 44, 191, 0.4);
+  --text-shadow: rgba(123, 44, 191, 0.6);
+}
+
+body.theme-blue {
+  --primary-light: #A7C7E7;
+  --primary-dark: #6495ED;
+  --accent: #4169E1;
+  --accent-hover: #5B7FE6;
+  --shadow-color: rgba(65, 105, 225, 0.4);
+  --text-shadow: rgba(65, 105, 225, 0.6);
+}
+
+body.theme-sunset {
+  --primary-light: #FFD4A3;
+  --primary-dark: #FF9A56;
+  --accent: #FF6B35;
+  --accent-hover: #FF8554;
+  --shadow-color: rgba(255, 107, 53, 0.4);
+  --text-shadow: rgba(255, 107, 53, 0.6);
+}
+
+body,
+html {
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  transition: background 0.8s ease;
+}
+
+/* Container */
+.container {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  width: 90%;
+  max-width: 380px;
+  backdrop-filter: blur(10px);
+  animation: fadeInScale 0.8s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+h1 {
+  margin-bottom: 1.8rem;
+  font-weight: 700;
+  font-size: 2.2rem;
+  text-shadow: 0 2px 5px var(--text-shadow);
+  animation: textGlow 2s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+input::placeholder {
+  color: #ffaad1;
+  transition: opacity 0.3s ease;
+}
+
+input:focus::placeholder {
+  opacity: 0.5;
+}
+
+input:hover,
+input:focus {
+  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--accent);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+button span {
+  position: relative;
+  z-index: 2;
+}
+
+.button-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  animation: buttonShine 3s infinite;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  animation: floatHeart 8s ease-in infinite;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 2px 5px var(--text-shadow), 0 0 10px var(--text-shadow);
+  }
+  50% {
+    text-shadow: 0 2px 5px var(--text-shadow), 0 0 20px var(--text-shadow), 0 0 30px var(--text-shadow);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes floatHeart {
+  0% {
+    bottom: -10%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(100px) rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 420px;
+    padding: 3rem 3.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  input {
+    font-size: 1.2rem;
+    padding: 1rem 1.3rem;
+  }
+  button {
+    font-size: 1.3rem;
+    padding: 1.2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    max-width: 420px;
+    padding: 2.2rem 2.8rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .container {
+    width: 85%;
+    max-width: 450px;
+    padding: 2rem 2.5rem;
+  }
+  h1 {
+    font-size: 1.9rem;
+  }
+  input {
+    font-size: 1.05rem;
+    padding: 0.85rem 1.1rem;
+  }
+  button {
+    font-size: 1.15rem;
+    padding: 0.95rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 599px) {
+  .container {
+    width: 90%;
+    max-width: 400px;
+    padding: 1.8rem 2.2rem;
+  }
+  h1 {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+  }
+  input {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+  }
+  button {
+    font-size: 1.1rem;
+    padding: 0.9rem;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 479px) {
+  .container {
+    width: 92%;
+    padding: 1.6rem 2rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.3rem;
+  }
+  input {
+    font-size: 0.95rem;
+    padding: 0.75rem 0.95rem;
+  }
+  .input-wrapper {
+    margin-bottom: 1.7rem;
+  }
+  button {
+    font-size: 1.05rem;
+    padding: 0.85rem;
+  }
+}
+
+@media (max-width: 374px) {
+  .container {
+    width: 94%;
+    padding: 1.4rem 1.6rem;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  input {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+  }
+  .input-wrapper {
+    margin-bottom: 1.5rem;
+  }
+  button {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .container {
+    padding: 1.2rem 2rem;
+    max-width: 500px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .input-wrapper {
+    margin-bottom: 1.2rem;
+  }
+  input {
+    padding: 0.6rem 1rem;
+  }
+  button {
+    padding: 0.7rem;
+  }
+}

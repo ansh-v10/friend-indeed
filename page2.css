@@ -1,0 +1,503 @@
+/* Theme Variables */
+:root {
+  --primary-light: #f8a5c2;
+  --primary-dark: #f78fb3;
+  --accent: #ff2e88;
+  --accent-hover: #ff4a9a;
+  --shadow-color: rgba(255, 46, 136, 0.4);
+  --text-shadow: rgba(255, 46, 136, 0.6);
+  --no-btn-bg: #555;
+  --no-btn-hover: #666;
+}
+
+body.theme-purple {
+  --primary-light: #d4a5f0;
+  --primary-dark: #b88bd9;
+  --accent: #7B2CBF;
+  --accent-hover: #9D4EDD;
+  --shadow-color: rgba(123, 44, 191, 0.4);
+  --text-shadow: rgba(123, 44, 191, 0.6);
+  --no-btn-bg: #4a4a4a;
+  --no-btn-hover: #5a5a5a;
+}
+
+body.theme-blue {
+  --primary-light: #a5d4f0;
+  --primary-dark: #7eb8e6;
+  --accent: #4169E1;
+  --accent-hover: #5B7FE6;
+  --shadow-color: rgba(65, 105, 225, 0.4);
+  --text-shadow: rgba(65, 105, 225, 0.6);
+  --no-btn-bg: #4a5568;
+  --no-btn-hover: #5a6578;
+}
+
+body.theme-sunset {
+  --primary-light: #ffc48c;
+  --primary-dark: #ffa062;
+  --accent: #FF6B35;
+  --accent-hover: #FF8554;
+  --shadow-color: rgba(255, 107, 53, 0.4);
+  --text-shadow: rgba(255, 107, 53, 0.6);
+  --no-btn-bg: #664229;
+  --no-btn-hover: #765239;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, var(--primary-light), var(--primary-dark));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  transition: background 0.8s ease;
+}
+
+/* Main Card */
+.container {
+  position: relative;
+  width: 90%;
+  max-width: 550px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  transition: all 0.5s ease;
+  animation: fadeInScale 0.8s ease;
+  box-shadow: 0 8px 35px var(--shadow-color);
+}
+
+/* Question */
+h1 {
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 10px var(--text-shadow);
+  animation: textPulse 2s ease-in-out infinite;
+  font-weight: 700;
+}
+
+/* Button Area */
+.btn-group {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin-top: 2rem;
+  overflow: visible;
+}
+
+/* Button Base */
+button {
+  position: absolute;
+  padding: 16px 35px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+button span {
+  position: relative;
+  z-index: 2;
+}
+
+/* YES Button - Centered */
+#yesBtn {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: var(--accent);
+  color: white;
+  z-index: 5;
+  animation: yesPulse 2s ease-in-out infinite;
+}
+
+#yesBtn .pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+#yesBtn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--accent-hover);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+
+#yesBtn:active {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* NO Button - starts centered below YES, then moves dynamically */
+#noBtn {
+  background: var(--no-btn-bg);
+  color: white;
+  z-index: 3;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  /* Initial position set by JavaScript to be below YES button */
+}
+
+#noBtn:hover {
+  background: var(--no-btn-hover);
+}
+
+/* Celebration */
+body.celebrate {
+  animation: bgPulse 1.5s infinite alternate;
+}
+
+body.celebrate .container {
+  animation: celebrateScale 1s ease-in-out infinite alternate;
+}
+
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart-float {
+  position: absolute;
+  font-size: 25px;
+  opacity: 0;
+  animation: floatUp 4s ease-in infinite;
+}
+
+/* Success Message */
+.success-message {
+  animation: fadeInScale 0.6s ease;
+}
+
+.success-message h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  animation: bounceIn 0.8s ease;
+}
+
+.success-message h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s ease 0.3s both;
+}
+
+.success-message p {
+  font-size: 1.3rem;
+  animation: fadeIn 1s ease 0.6s both;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 2px 10px var(--text-shadow);
+  }
+  50% {
+    transform: scale(1.02);
+    text-shadow: 0 2px 20px var(--text-shadow), 0 0 30px var(--text-shadow);
+  }
+}
+
+@keyframes yesPulse {
+  0%, 100% {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    box-shadow: 0 8px 30px var(--shadow-color), 0 0 40px var(--shadow-color);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bgPulse {
+  0% {
+    filter: brightness(1) hue-rotate(0deg);
+  }
+  100% {
+    filter: brightness(1.15) hue-rotate(10deg);
+  }
+}
+
+@keyframes celebrateScale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    bottom: -10%;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+    transform: translateX(50px) rotate(180deg);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 600px;
+    padding: 3rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  button {
+    padding: 18px 40px;
+    font-size: 1.2rem;
+  }
+  .btn-group {
+    height: 280px;
+  }
+  .success-message h1 {
+    font-size: 3rem;
+  }
+  .success-message h2 {
+    font-size: 2rem;
+  }
+  .success-message p {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .container {
+    max-width: 580px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    width: 85%;
+    max-width: 550px;
+    padding: 2.2rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  button {
+    padding: 15px 32px;
+    font-size: 1.05rem;
+  }
+  .btn-group {
+    height: 230px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .container {
+    width: 88%;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.8rem;
+  }
+  button {
+    padding: 14px 30px;
+    font-size: 1rem;
+  }
+  .btn-group {
+    height: 220px;
+    margin-top: 1.8rem;
+  }
+  .success-message h1 {
+    font-size: 2.2rem;
+  }
+  .success-message h2 {
+    font-size: 1.5rem;
+  }
+  .success-message p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 599px) {
+  .container {
+    width: 92%;
+    padding: 1.8rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+  button {
+    padding: 13px 28px;
+    font-size: 0.95rem;
+  }
+  .btn-group {
+    height: 200px;
+    margin-top: 1.6rem;
+  }
+  .success-message h1 {
+    font-size: 2rem;
+  }
+  .success-message h2 {
+    font-size: 1.3rem;
+  }
+  .success-message p {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 479px) {
+  .container {
+    width: 94%;
+    padding: 1.6rem;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  button {
+    padding: 12px 25px;
+    font-size: 0.9rem;
+  }
+  .btn-group {
+    height: 180px;
+    margin-top: 1.4rem;
+  }
+  .success-message h1 {
+    font-size: 1.8rem;
+  }
+  .success-message h2 {
+    font-size: 1.2rem;
+  }
+  .success-message p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 374px) {
+  .container {
+    width: 96%;
+    padding: 1.4rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+  button {
+    padding: 11px 22px;
+    font-size: 0.85rem;
+  }
+  .btn-group {
+    height: 170px;
+    margin-top: 1.2rem;
+  }
+  .success-message h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  .success-message h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  .success-message p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .container {
+    padding: 1.5rem 2rem;
+    max-width: 650px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+  .btn-group {
+    height: 140px;
+    margin-top: 1rem;
+  }
+  .success-message h1 {
+    font-size: 1.6rem;
+  }
+  .success-message h2 {
+    font-size: 1.2rem;
+  }
+  .success-message p {
+    font-size: 0.9rem;
+  }
+}
