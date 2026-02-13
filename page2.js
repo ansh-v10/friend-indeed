@@ -34,7 +34,7 @@ function setInitialNoPosition() {
   
   // Position NO button exactly centered below YES button
   const gap = 28; // Gap between buttons
-  const noBtnLeft = yesCenterX;
+  const noBtnLeft = yesCenterX - noBtnRect.width / 15;
   const noBtnTop = yesBottom + gap;
   
   noBtn.style.left = `${noBtnLeft}px`;
